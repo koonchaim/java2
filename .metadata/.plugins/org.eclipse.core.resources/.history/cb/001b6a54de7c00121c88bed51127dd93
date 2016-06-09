@@ -1,0 +1,34 @@
+import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
+import java.util.Vector;
+
+
+public class DeleteCoffee {
+	private Vector<Coffee> coffeeVector = new Vector<Coffee>();
+	public void AddCoffee() throws IOException{
+		File file = new File("coffee.txt");
+		Scanner scanner = new Scanner(file);
+		
+		while (scanner.hasNext()) {
+			String text = scanner.nextLine();
+			Scanner data = new Scanner(text);
+			
+			int id = data.nextInt();			
+			String name = data.next();
+			int price_small = data.nextInt();
+			int price_medium = data.nextInt();
+			int price_big = data.nextInt();
+			
+			Coffee coff = new Coffee(id,name,price_small,price_medium,price_big);
+			coffeeVector.add(coff);
+		}
+		this.listChoice();
+		scanner.close();
+	}
+	public void listChoice(){
+		for(int i =0 ; i < coffeeVector.size() ;i++){
+			System.out.println(coffeeVector.elementAt(i));
+		}
+	}
+}

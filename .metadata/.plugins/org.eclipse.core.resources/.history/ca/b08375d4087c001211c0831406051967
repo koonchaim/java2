@@ -1,0 +1,25 @@
+
+public class Coffee {
+	private int id;
+	private String name;
+	private int price_small;
+	private int price_medium;
+	private int price_big;
+	public int getId() {
+		return id;
+	}
+	public String getName() {
+		return name;
+	}
+	public int getPrice_small() {
+		return price_small;
+	}
+	public int getPrice_medium() {
+		return price_medium;
+	}
+	public int getPrice_big() {
+		return price_big;
+	}
+
+	
+}

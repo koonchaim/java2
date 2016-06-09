@@ -1,0 +1,42 @@
+import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
+
+
+public class ListCoffeeAndRecipe {
+	@SuppressWarnings("unused")
+	public void listAll() throws IOException{
+		ShowRecipe sr1 = new ShowRecipe();
+		File file = new File("recipe.txt");
+		ShowCoffee sc1 = new ShowCoffee();
+		File file1 = new File("coffee.txt");
+		Scanner scanner = new Scanner(file);
+		Scanner scanner1 = new Scanner(file1);
+		while (scanner.hasNext()) {
+			String text = scanner.nextLine();
+			Scanner data = new Scanner(text);
+			String id1 = data.next();
+			String name_coffee = data.next();
+			String mash_1 = data.next();
+			String mash_2 = data.next();
+			String mash_3 = data.nextLine();
+			
+			
+			String text1 = scanner1.nextLine();
+			Scanner data1 = new Scanner(text1);
+			String id2 = data.next();			
+			String name = data1.next();
+			int price_small = data1.nextInt();
+			int price_medium = data1.nextInt();
+			int price_big = data1.nextInt();
+
+			
+			System.out.println(id1+" "+name+"\t"+price_small+"\t"+price_medium+"\t"+price_big+"\t"+mash_1+","+mash_2+","+mash_3);
+		}
+
+		scanner.close();
+	}
+/*
+ * end
+ */
+}

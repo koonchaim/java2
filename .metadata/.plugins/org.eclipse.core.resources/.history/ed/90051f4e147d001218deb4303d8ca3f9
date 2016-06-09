@@ -1,0 +1,303 @@
+import java.util.*;
+import java.io.*;
+
+//--!  คลาส ควบคุม การทำงาน ของเมนู  List All Course   --!
+public class CourseDetail {
+	
+	private String courseId="";	//ตัวแปร รหัสวิชา
+	private String courseName=""; //ตัวแปร ชื่อวิชา
+	private String date=""; //ตัวแปร วันที่เปิดสอน
+	private String time=""; //ตัวแปร เวลาที่เปิดสอน
+	private String day[]={"จันทร์","อังคาร","พุธ","พฤหัส","ศุกร์","เสาร์","อาทิตย์"}; //ตัวแปร วัน
+	private Scanner sc = new Scanner(System.in);
+	
+	private Vector<Course> coVec = new Vector<Course>();	//ตัวแปรเก็บค่า วิชาทั้งหมดในไฟล์ course.txt
+	
+	
+	public CourseDetail(){
+			this.writeStart(); //เรียกใช้ เมธอด writeStart() เพื่อทำการบรรทึกข้อมูลวิชา ลงในตัวแปร coVec
+	}
+
+	//**  เพิ่มรายวิชาที่เปิดสอน  **
+	public boolean addCourse(){
+			
+			//ใช้ควบคุม while loob
+			//ใช้ตรวจสอบ เพื่อแสดงข้อความเตือน "กรอกวันไม่ถูกต้อง"
+			System.out.println("\n-- Add Course --");
+	
+					
+			System.out.print("กรุณากรอกรหัสวิชา(courseId) ที่ต้องการเพิ่ม : ");
+			courseId = sc.next();
+			if( !chkCourseId(courseId)) { //ตรวจสอบ วิชาที่ลงทะเบียนว่า ซ้ำกับวิชาที่ลงทะเบียนไว้แล้วหรือไม่
+				System.out.println("รหัสวิชาซ้ำกับที่เคยลงทะเบียนไว้");
+				return false;
+			}
+			if( !checkString(courseId) || !chkCourseIdLength(courseId) ){ //ตรวจสอบควมถูกต้องของ รหัสวิชา
+				System.out.println("รหัสวิชาไม่ถูกต้อง");
+				return false;
+			}
+		
+			
+			System.out.print("กรุณากรอกชื่อวิชา(courseName) ที่ต้องการเพิ่ม : ");
+			courseName = sc.next();
+			if( checkString(courseName) ){ //ตรวจสอบควมถูกต้องของ ชื่อวิชา
+				System.out.println("ชื่อวิชาไม่ถูกต้อง");
+				return false;
+			}
+			
+			System.out.print("กรุณากรอกวัน(date) ที่ต้องการ : ");
+			date = sc.next();
+			if( chkDate(date) ){ //ตรวจสอบควมถูกต้องของ วัน  ที่เปิดสอน
+				System.out.println("วันไม่ถูกต้อง");
+				return false;
+			}
+			
+					
+						
+			System.out.print("กรุณากรอกเวลา(time) ที่ต้องการ : ");
+			time = sc.next();
+			if( !checkTime(time)){
+				System.out.println("เวลาไม่ถูกต้อง");
+				return false;
+			}
+			//ตรวจสอบควมถูกต้องของ เวลา  ที่เปิดสอน
+			coVec.addElement(new Course(courseId,courseName,date,time));
+			writeCourse();
+			//เรียกใช้ writeCourse() 
+			System.out.println("การเพิ่มรายวิชาที่เปิดสอนเสร็จสมบูรณ์\n");
+			return true;
+		}
+	
+	
+	//**  ตรวจสอบเวลา ที่เปิดสอน  **
+	public boolean checkTime(String time){
+		
+		String split[] = time.split("-");
+		double start = Double.parseDouble(split[0]);
+		double end = Double.parseDouble(split[1]);
+		
+		Hello : System.out.println("df");
+	
+		if(end - start > 5){ 	//ตรวจสอบ เวลาที่เปิดสอน ให้อยู่ในช่วง ไม่เกิด 5 ชั่วโมง
+			return false;
+		}
+		
+		if( (start < 8.00) || (start > 18.00) || (end < 8.00) || (end > 18.00)  ){
+			return false; //ตรวจสอบเวลา ว่าอยู่ในช่วง 8.00-18.00 หรือไม่
+		} 
+
+		if( start-(int)start != 0 || end-(int)end !=0){
+			return false; //ตรวจสอบหลัก นาที ของวิชาที่เปิดสอน
+		}
+		return true; //ตรวจสอบความถูกต้อง ว่าเวลาถูกต้องทั้งหมดหรือไม่
+	}
+	
+	
+	//**  การบรรทึกข้อมูลวิชาจากไฟล์ course.txt ลงในตัวแปร coVec  **
+	public void writeStart(){
+		try {
+			Scanner scan = new Scanner(new File("course.txt"));
+			while(scan.hasNext()){
+				coVec.addElement(new Course(scan.next(),scan.next(),scan.next(),scan.next()));
+			}
+		} catch (FileNotFoundException e) {
+			System.err.println("ไม่พบไฟล์");
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	//** บรรทึกข้อมูล วิชา ลงในไฟล์ course.txt  **
+	public void writeCourse(){
+		try {
+			PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("course.txt")), true);
+			for(Course c : coVec){
+				out.write(c.getCourseId()+" "+c.getCourseName()+" "+c.getDate()+" "+c.getTime());
+				out.write("\n");
+			}
+			//out.write("\n"+studentId+" "+title+" "+firstName+" "+lastName+" "+department);
+			out.close();
+		} catch (IOException e) {
+			System.out.println("เกิดความขัดข้องระหว่างเขียนไฟล์");
+			e.printStackTrace();
+		}
+	
+	}
+	
+	
+	public boolean chkDate(String date){
+		for (int i = 0; i < day.length; i++) {
+			if(day[i].equals(date)){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	//** ตรวจสอบรหัสวิชา ว่าซ้ำกับ วิชาที่ลงทะเบียนไปแล้วหรือไม่  **
+	public boolean chkCourseId(String cId){
+		for(Course c: coVec){//ใช้ยืนว่ารหัสวิชา ซ้ำหรือไม่ เพื่อส่งค่ากลับไปยัง เมธอด
+			
+			if(cId.equals(c.getCourseId())){
+				return false;
+			}
+		}
+		return true;
+	}
+	public boolean chkCourseIdLength(String cId){
+		return cId.length() == 3;
+	}
+	
+	//** ตรวจสอบว่าข้อความนั้นๆ เป็นข้อความจริงหรือไม่ **
+	public boolean checkString(String s){
+		return s.matches("-?\\d+(.\\d+)?") ;
+	}
+	
+	//** ตรวจสอบว่าค่าที่รับมาเป็น ตัวเลขหรือไม่  **
+	public boolean checkInt(String s){
+		try{
+			double d = Double.parseDouble(s);
+		}catch(NumberFormatException e){
+			return false;
+		}
+		return true;
+	    
+	}
+	
+	
+	//** ลบข้อมูล วิชาในไฟล์ course.txt **
+	public boolean delCourse(){
+		
+			System.out.println("-- Delete Course --");
+			showAllCourse();//เรีัยกใช้งาน เมธอด showAllCourse() เืพื่อแสดงรายชื่อวิชาที่เปิดสอน
+			
+			System.out.println("\nกรุณากรอกรหัสวิชา(courseId)ที่ต้องการลบ : ");
+			String delC = sc.next();
+			if( delC.equals("0")){	//ตรวจสอบ  รหัสวิชาว่าเป็นเลข 0 หรือไม่ เพื่อจบการทำงาน
+				return true;
+			}
+			int positionCourse = searchCourse(delC);
+			if( !chkCourseIdLength(delC) ){
+				System.out.println("รหัสวิชาไม่ถูกต้อง"); //ตรวจสอบ ว่ารหัสวิชา กรอกถูกต้องหรือไม่
+				return false;
+			}
+			if(chkCourseId(delC) ||  positionCourse == -1){
+				System.out.println("ไม่มีรหัสวิชา");
+				return false;
+			}
+			coVec.remove(positionCourse);
+			writeCourse();
+			System.out.println("การลบรายชื่อวิชาที่เปิดสอนเสร็จสมบูรณ์"); //ตรวจสอบว่า มีการลบข้อมูล วิชาที่เปิดสอนไปหรือไม่
+		
+			return true;  //ส่งค่ากลับไปเพื่อยืนยันว่า มีการลบข้อมูล วิชาที่เปิดสอน หรือไม่
+	}
+	
+	public int searchCourse(String cid){
+		for (int i = 0; i < coVec.size(); i++) {
+			if(coVec.get(i).getCourseId().equals(cid)){
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	//** แก้ไขข้อมูล วิชาในไฟล์ course.txt **
+	public boolean editCourse(){
+		  	//ตัวแปร ไว้สำหรับตรวจสอบอักษร ตัวแรกที่ผู้ใช้ป้อน
+			//ตัวแปร สำรองในการรับ ค่าพื้นฐาน ของรายวิชา
+			//ตัวแปร ตรวจสอบ ความถูกต้องที่ผู้ใช้ได้ดำเนินการ
+		String courseIdChk = "";
+		String courseNameChk = "";
+		String dateChk = "";
+		String timeChk = "";
+			System.out.println("-- Edit Course Details --");
+		
+			//Scanner  scBf = new Scanner(System.in);	
+			System.out.print("กรุณากรอกรหัสวิชา(courseId) ที่ต้องการแก้ไข : ");
+			courseIdChk = sc.nextLine();
+			if(courseIdChk.equals(" ")){
+				return true;
+			}
+			
+			if( chkCourseId(courseIdChk)) { //ตรวจสอบ วิชาที่ลงทะเบียนว่า ซ้ำกับวิชาที่ลงทะเบียนไว้แล้วหรือไม่
+				System.out.println("ไม่มีรหัสวิชาที่ต้องการแก้ไข");
+				return false;
+			}
+
+			if( !checkString(courseIdChk) || !chkCourseIdLength(courseIdChk) ){ //ตรวจสอบควมถูกต้องของ รหัสวิชา
+				System.out.println("รหัสวิชาไม่ถูกต้อง");
+				return false;
+			}
+		
+			//เรียกใช้ readForEdit() 
+			System.out.print("กรุณากรอกชื่อวิชา(courseName) ที่ต้องการแก้ไข : ");
+			courseNameChk = sc.nextLine();
+			if(courseNameChk.equals(" ")){ //ตรวจสอบว่าผู้ใช้กรอกค่า ว่างมาหรือไม่
+				return true;
+			}
+			
+		    System.out.print("กรุณากรอกวัน(date) ที่ต้องการ : ");
+		    dateChk = sc.nextLine(); 
+		    if( dateChk.equals(" ") ){
+		    	return true;
+		    }
+		    if( chkDate(dateChk) ){ //ตรวจสอบควมถูกต้องของ วัน  ที่เปิดสอน
+				System.out.println("วันไม่ถูกต้อง");
+				return false;
+			}
+		  
+			System.out.print("กรุณากรอกเวลา(time) ที่ต้องการแก้ไข : ");
+			timeChk = sc.nextLine();
+			if( timeChk.equals(" ") ){
+				return true;
+			}
+			if( !checkTime(timeChk)){ //ทำการตรวจสอบเวลาที่ เมธอด checkTime()
+				System.out.println("เวลาไม่ถูกต้อง");
+				return false;
+			}
+			
+			int positionCourse = searchCourse(courseIdChk);
+			Course temp = new Course(courseIdChk,courseNameChk,dateChk,timeChk);
+			coVec.set(positionCourse,temp); //บันทึกค่า รายวิชา ที่แก้ไขลงไว้ในตัวแปร coVec
+			writeCourse(); //ทำการ บันทึกค่ารายวิชาที่แก้ไข โดยทำงานที่ เมธอด writeCourse() 
+		    System.out.println("การแก้ไขรายละเอียดรายวิชาที่เปิดสอนเสร็จสมบูรณ์"); //ตรวจสอบ ว่าได้แก้ไข รายวิชา เสร็จสมบูรณ์ หรือไม่
+		     
+		return true;
+	}
+
+	//**  แสดงรายชื่อวิชา  **
+	public boolean showListCourse(){ //ใช้ตรวจสอบ เพื่อแสดงข้อความเตือน "ไม่พบข้อมูลรายวิชาที่เปิดสอน"
+			
+			try {
+				Scanner bfCourse = new Scanner(new File("course.txt"));
+			} catch (FileNotFoundException e) {
+				System.out.println("ไม่พบข้อมูลรายวิชาที่เปิดสอน\n"); //ตรวจสอบว่า ไฟล์ มีข้อมุลรายวิชาหรือไม่
+				return false;
+			}
+	  	
+			return true;
+	}
+	public void showAllCourse(){
+		if(showListCourse()){
+			for(Course c:coVec){
+				System.out.println(c.getCourseId()+" "+c.getCourseName()+" "+c.getDate()+" "+c.getTime());
+			}
+		}
+			
+	}
+	
+	//** อ่านข้อมูล จากไฟล์ course.txt เพื่อมาเก็บไว้ที่ตัวแปร ก่อนทำการ แก้ไข**
+	public void readForEdit(String courseId){
+		
+		//Scanner bfCo = new Scanner(new File("course.txt"));
+	       
+	}
+
+	public Vector<Course> getCoVec() {
+		return coVec;
+	}
+	
+
+
+}

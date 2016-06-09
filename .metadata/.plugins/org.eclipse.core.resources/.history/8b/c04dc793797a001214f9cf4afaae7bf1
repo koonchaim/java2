@@ -1,0 +1,62 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Scanner;
+
+
+@SuppressWarnings("unused")
+public class Run {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args)throws IOException  {
+		// TODO Auto-generated method stub
+		int num=0;
+		Scanner input =new Scanner(System.in);
+		AddCoffee add = new AddCoffee();
+		ShowCoffee showCoff = new ShowCoffee();
+		ShowRecipe showRecipe = new ShowRecipe();
+		ListCoffeeAndRecipe list = new ListCoffeeAndRecipe();
+		
+		do{
+			try{
+				
+			System.out.println("\n*******************************************************************\n"+
+					"\tWelcome to the IT Coffee House!\n\n" +
+					"\t\t1. แสดงรายชื่อกาแฟทั้งหมด (List All Coffees)\n"+
+					"\t\t2. เพิ่มชนิดกาแฟ (Add Coffee)\n"+
+					"\t\t3. ลบชนิดกาแฟ (Delete Coffee)\n"+
+					"\t\t4. แก้ไขชนิดกาแฟ (Edit Coffee)\n"+
+					"\t\t5. แสดงรายการส่วนผสม (List All Recipes)\n"+
+					"\t\t6. แก้ไขรายการส่วนผสม (Edit Recipe)\n"+
+					"\t\t7. แสดงรายละเอียดทั้งหมด (List All Coffees and Recipes)\n"+
+					"\t\t8. จบการทำงาน (Exit)\n\n"+
+					"\tกรุณาเลือกหมายเลขเพื่อรับการบริการตั้งแต่1 - 8\n"+
+					"*******************************************************************\n");
+			num=input.nextInt();
+			
+			switch(num){
+			case(1):showCoff.listCoffee();break;
+			case(2):add.inputdata();;break;
+			case(3):break;
+			case(4):break;
+			case(5):showRecipe.listRecipe();break;
+			case(6):break;
+			case(7):list.listAll();break;
+			default:break;
+			}
+			
+			}catch(NumberFormatException e){
+				System.out.println("กรุณากรอกเฉพาะตัวเลข !!");
+			}catch(Exception e){
+				System.out.println(e.getMessage());
+			}
+		
+		}while(num!=8);
+		System.out.println("***************************Exit*********************************");
+	}
+
+	
+}
+

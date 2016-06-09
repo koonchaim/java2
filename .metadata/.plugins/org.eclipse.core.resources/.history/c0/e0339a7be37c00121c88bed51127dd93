@@ -1,0 +1,5 @@
+
+public class Recipe {
+	private String name_recipe,mash_1,mash_2,mash_3;
+	
+}

@@ -1,0 +1,13 @@
+import java.io.IOException;
+
+
+public class Menu {
+	public void listAllStudent() throws IOException {
+		while (true) {
+			ShowCoffee cof = new ShowCoffee();
+			System.out.println("-- List All Students --");
+			cof.listCoffee();
+		}
+	}
+
+}

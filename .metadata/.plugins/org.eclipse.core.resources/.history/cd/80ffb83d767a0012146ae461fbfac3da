@@ -1,0 +1,61 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Scanner;
+
+
+@SuppressWarnings("unused")
+public class Run {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args)throws IOException  {
+		// TODO Auto-generated method stub
+		int num=0;
+		Scanner input =new Scanner(System.in);
+		AddCoffee add = new AddCoffee();
+		ShowCoffee showCoff = new ShowCoffee();
+		ShowRecipe showRecipe = new ShowRecipe();
+		
+		do{
+				
+			System.out.println("*******************************************************************\n"+
+					"\tWelcome to the IT Coffee House!\n\n" +
+					"\t\t1. แสดงรายชื่อกาแฟทั้งหมด (List All Coffees)\n"+
+					"\t\t2. เพิ่มชนิดกาแฟ (Add Coffee)\n"+
+					"\t\t3. ลบชนิดกาแฟ (Delete Coffee)\n"+
+					"\t\t4. แก้ไขชนิดกาแฟ (Edit Coffee)\n"+
+					"\t\t5. แสดงรายการส่วนผสม (List All Recipes)\n"+
+					"\t\t6. แก้ไขรายการส่วนผสม (Edit Recipe)\n"+
+					"\t\t7. แสดงรายละเอียดทั้งหมด (List All Coffees and Recipes)\n"+
+					"\t\t8. จบการทำงาน (Exit)\n\n"+
+					"\tกรุณาเลือกหมายเลขเพื่อรับการบริการตั้งแต่1 - 8\n"+
+					"*******************************************************************\n");
+			num=input.nextInt();
+
+			if(num==1){
+				showCoff.listCoffee();
+			}
+			else if(num==2){
+				System.out.print("\n1.กรุณากรอกชื่อกาแฟ  : ");
+				String name=input.next();
+				System.out.print("2.กรุณากรอกราคากาแฟร้อน  : ");
+				String hot=input.next();
+				System.out.print("3.กรุณากรอกราคากาแฟเย็นขนาดเล็ก  : ");
+				String small=input.next();
+				System.out.print("4.กรุณากรอกราคากาแฟเย็นขนาดใหญ่  : ");
+				String large=input.next();
+				add.inputdata(name, hot, small, large);
+			}
+			else if(num==3){
+				showRecipe.listRecipe();
+			}
+		
+		}while(num!=8);
+		System.out.println("\t*********Exit********");
+	}
+
+	
+}
+

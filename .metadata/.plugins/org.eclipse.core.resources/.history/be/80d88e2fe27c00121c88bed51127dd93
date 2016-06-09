@@ -1,0 +1,12 @@
+import java.io.IOException;
+
+
+public class Menu {
+	public void listAllStudent() throws IOException {
+
+			ShowCoffee cof = new ShowCoffee();
+			System.out.println("-- รายชื่อกาแฟทั้งหมด --");
+			cof.listCoffee();
+	}
+
+}

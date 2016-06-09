@@ -1,0 +1,96 @@
+import java.util.Scanner;
+
+
+public class EditCoffee {
+	
+	public int findStudentId(String stu){
+		for (int i = 0; i < stuVec.size(); i++) {
+			if(stu.equalsIgnoreCase(stuVec.get(i).getStudentId())){
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	// ** แก้ไขข้อมูล วิชาในไฟล์ student.txt **
+	public boolean editStudent() {
+		int tmp = -1;
+		String titleChk = "";//นาย นางสาว
+		String fristNameChk = "";
+		String lastNameChk = "";
+		String departmentChk = ""; // ตัวแปร สำรองในการรับ ค่าพื้นฐาน
+									// ของนักศึกษา
+		
+		System.out.println("-- Edit Student Details --");
+		System.out.println("  ");
+		Scanner scBf = new Scanner(System.in);
+		System.out.println("กรุณากรอกรหัสนักศึกษา(StudentId) ที่ต้องการแก้ไข : ");
+		studentId = scBf.nextLine();
+	
+		try {
+			Checker.isDuplicateID(studentId, stuVec);
+		} catch (WrongInputException e) {
+			System.out.println(e.getMessage());
+			return true;
+		}
+		tmp = findStudentId(studentId);
+		System.out.println("กรุณากรอกคำนำหน้านักศึกษา(StudentId) ที่ต้องการแก้ไข : ");
+		titleChk = scBf.nextLine();
+		
+		try {
+			Checker.isTitleName(titleChk);
+		} catch (WrongInputException e) {
+			System.out.println(e.getMessage());
+			return true;
+		}
+		
+		if (!titleChk.equalsIgnoreCase(" ")) {
+			stuVec.get(tmp).setTitle(titleChk);
+		}
+		System.out.println("กรุณากรอกชื่อนักศึกษา(StudentId) ที่ต้องการแก้ไข : ");
+		fristNameChk = scBf.nextLine();
+		try {
+			Checker.isCheckName(fristNameChk, "FirstName");
+		} catch (WrongInputException e) {
+			System.out.println(e.getMessage());
+			return true;
+		}
+		
+		if (!fristNameChk.equalsIgnoreCase(" ")) {
+			stuVec.get(tmp).setFirstName(fristNameChk);
+		}
+		System.out.println("กรุณากรอกนามสกุลนักศึกษา(StudentId) ที่ต้องการแก้ไข : ");
+		lastNameChk = scBf.nextLine();
+		
+		try {
+			Checker.isCheckName(lastNameChk, "Lastname");
+		} catch (WrongInputException e) {
+			System.out.println(e.getMessage());
+			return  true;
+		}
+		
+		if (!lastNameChk.equalsIgnoreCase(" ")) {
+			stuVec.get(tmp).setLastName(lastNameChk);
+		}
+		
+		
+		System.out.println("กรุณากรอกสาขา(StudentId) ที่ต้องการแก้ไข : ");
+		departmentChk = scBf.nextLine();
+		
+		try {
+			Checker.isCheckName(departmentChk, "Department");
+		} catch (WrongInputException e) {
+			System.out.println(e.getMessage());
+			return true;
+		}
+		
+		
+		if (!departmentChk.equalsIgnoreCase(" ")) {
+			stuVec.get(tmp).setDepartment(departmentChk);
+		}
+		writeStudent();
+		System.out.println("การแก้ไขรายชื่อนักศึกษาเสร็จสมบูรณ์");
+		return false;
+	}
+
+}

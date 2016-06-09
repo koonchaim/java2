@@ -1,0 +1,81 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Writer;
+
+import java.util.Scanner;
+
+public class FileUtil {
+
+	public void inputdata() throws IOException {
+		int c1 = 0, c2 = 1;
+		boolean fn = false, write = false;
+
+		Scanner input = new Scanner(System.in);
+		boolean append = true;
+		// เพิ่มส่วนผสม
+		// PrintWriter pw = new PrintWriter(new FileWriter(new File("test.txt"),
+		// append));
+		FileWriter writename = new FileWriter("test.txt", true);
+		BufferedWriter out = new BufferedWriter(writename);
+		// pw.println(subj.toString());
+		System.out.print("1.กรุณากรอกส่วนผสมที่ต้องการเพิ่ม  : ");
+		int numrecipe = input.nextInt();
+		// pw.println("");
+		// String mash1=null;
+		int num = 2;
+		for (int i = 1; i <= numrecipe; i++) {
+			System.out.print(num + ".กรุณากรอกส่วนผสมที่ " + i + "  : ");
+			c2++;
+			if (write == true) {				
+				String mash1 = input.next();
+				out.write(c2 + " ");
+				out.write(mash1 + " ");
+
+				num++;
+			} else {
+				c1++;
+				String mash1 = input.next();
+				out.write(c1 + " ");
+				out.write(mash1 + " ");
+			}
+		}
+		out.newLine();
+		System.out.println("การเพิ่มชนิดกาแฟเสร็จสมบูรณ์");
+		out.close();
+		// pw.close();
+	}
+
+	public static void main(String[] args) throws Exception {
+		// TODO Auto-generated method stub
+		int num = 0;
+		Scanner input = new Scanner(System.in);
+		FileUtil fi = new FileUtil();
+		do {
+			try {
+
+				System.out
+						.println("\n*******************************************************************\n");
+				num = input.nextInt();
+				switch (num) {
+				case (1):
+					fi.inputdata();
+					break;
+				default:
+					break;
+				}
+
+			} catch (NumberFormatException e) {
+				System.out.println("กรุณากรอกเฉพาะตัวเลข !!");
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+
+		} while (num != 8);
+		System.out
+				.println("******************************Exit*********************************");
+	}
+}

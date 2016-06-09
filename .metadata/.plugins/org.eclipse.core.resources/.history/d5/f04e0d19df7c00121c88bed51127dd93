@@ -1,0 +1,42 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Scanner;
+import java.util.Vector;
+
+
+public class DeleteCoffee {
+	private Vector<Coffee> coffeeVector = new Vector<Coffee>();
+	public void AddCoffee() throws IOException{
+		File file = new File("coffee.txt");
+		Scanner scanner = new Scanner(file);
+		
+		while (scanner.hasNext()) {
+			String text = scanner.nextLine();
+			Scanner data = new Scanner(text);
+						
+			String name = data.next();
+			int price_small = data.nextInt();
+			int price_medium = data.nextInt();
+			int price_big = data.nextInt();
+			
+			Coffee coff = new Coffee(name,price_small,price_medium,price_big);
+			coffeeVector.add(coff);
+			
+			
+			try {
+				Scanner scIn = new Scanner(new File("student.txt"));
+				while (scIn.hasNext()) {
+					Student st = new Student(scIn.next(), scIn.next(), scIn.next(),
+							scIn.next(), scIn.next());
+					stuVec.addElement(st);
+				}
+			} catch (FileNotFoundException e) {
+				System.out.println("File Not Found Exception");
+			}
+			
+			
+		}
+		scanner.close();
+	}
+}

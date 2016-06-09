@@ -1,0 +1,342 @@
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
+
+public class Examination {
+	public void Math(String fname,String lname)throws IOException{
+		Scanner input=new Scanner(System.in);
+		int scoreMath=0;
+		int countMath=1;
+		int timeMath1=1;
+		boolean check=false,check2=false;
+		try{
+			FileReader file = new FileReader("101.txt");
+			Scanner scanner = new Scanner(file);
+			
+			FileReader file2 = new FileReader("StudentExam.txt");
+			Scanner scan = new Scanner(file2);
+			FileWriter writePoint =new FileWriter("StudentExam.txt",true);
+			BufferedWriter out =new BufferedWriter(writePoint);
+			
+			while(scanner.hasNext()){
+				String text=scanner.nextLine();
+				Scanner data= new Scanner(text);
+				String question=data.next();
+				String choice1=data.next();
+				String choice2=data.next();
+				String choice3=data.next();
+				String choice4=data.next();
+				String answer=data.next();
+				System.out.print(question+"\n"+choice1+"\n"+choice2+"\n"+choice3+"\n"+choice4+"\n");	
+				System.out.print("คำตอบที่ถูกต้องที่สุดคือ........ ");
+				String ans=input.next();
+				if(answer.equalsIgnoreCase(ans)){
+					scoreMath++;
+				}
+			}
+			System.out.println("ผลสอบวิชา คณิตศาสตร์ที่ได้คือ "+scoreMath+" คะแนน");
+			
+			if(scan.hasNext()){
+				while(scan.hasNext()){
+					String text1 = scan.nextLine();
+					Scanner data2=new Scanner(text1);
+					int number=data2.nextInt();
+					String fname1=data2.next();
+					String lname1=data2.next();
+					String couse=data2.next();
+					 int timeMath=data2.nextInt();
+					int points1=data2.nextInt();
+					countMath++;
+					System.out.println(couse);
+					if(fname1.equals(fname)&&lname1.equals(lname)&&couse.equals("คณิตศาสตร์")){
+						timeMath++;
+						timeMath1=timeMath;
+						System.out.println(timeMath);
+					   check=true;
+					   check2=false;
+					}else{
+					check2=true;
+					check=false;
+				    }
+				}
+				if(check==true){
+						out.write(countMath+"  "+fname+"  "+lname+"    "+"คณิตศาสตร์"+"  "+timeMath1+"  "+scoreMath);
+						out.newLine();
+					}
+				if(check2==true){
+					out.write(countMath+"  "+fname+"  "+lname+"    "+"คณิตศาสตร์"+"  "+timeMath1+"  "+scoreMath);
+					out.newLine();
+				}
+			}else{
+				out.write("1"+"  "+fname+"  "+lname+"    "+"คณิตศาสตร์"+"  "+timeMath1+"  "+scoreMath);
+				out.newLine();
+			}
+			out.close();
+			writePoint.close();
+			scan.close();
+			file2.close();
+			scanner.close();
+			file.close();
+			
+		}catch(FileNotFoundException exc){
+			exc.printStackTrace();
+		}catch(Exception e){
+			System.out.println("Error: " + e.getMessage());
+		}
+	}
+	
+	
+
+		public void English(String fname,String lname)throws IOException{
+			Scanner input=new Scanner(System.in);
+			int scoreEng=0;
+			int countEng=1;
+			int timeEng=1;
+			boolean check=false,check2=false;
+			try{
+				FileReader file = new FileReader("202.txt");
+				Scanner scanner = new Scanner(file);
+				
+				FileReader file2 = new FileReader("StudentExam.txt");
+				Scanner scan = new Scanner(file2);
+				FileWriter writePoint =new FileWriter("StudentExam.txt",true);
+				BufferedWriter out =new BufferedWriter(writePoint);
+				
+				while(scanner.hasNext()){
+					String text=scanner.nextLine();
+					Scanner data= new Scanner(text);
+					String qize=data.next();
+					String choice1=data.next();
+					String choice2=data.next();
+					String choice3=data.next();
+					String choice4=data.next();
+					String answer=data.next();
+					System.out.print(qize+"\n"+choice1+"\n"+choice2+"\n"+choice3+"\n"+choice4+"\n");	
+					System.out.print("คำตอบที่ถูกต้องที่สุดคือ....... ");
+					String ans=input.next();
+					if(answer.equalsIgnoreCase(ans)){
+						scoreEng++;
+					}
+				}
+				System.out.println("ผลสอบวิชา อังกฤษที่ได้คือ "+scoreEng+" คะแนน");
+				
+				if(scan.hasNext()){
+					while(scan.hasNext()){
+						String text1 = scan.nextLine();
+						Scanner data2=new Scanner(text1);
+						int number=data2.nextInt();
+						String fname1=data2.next();
+						String lname1=data2.next();
+						String couse=data2.next();
+						 int timeMath=data2.nextInt();
+						int points1=data2.nextInt();
+						countEng++;
+						System.out.println(couse);
+						if(fname1.equals(fname)&&lname1.equals(lname)&&couse.equals("อังกฤษ")){
+							timeMath++;
+							timeEng=timeMath;
+							System.out.println(timeEng);
+						   check=true;
+						   check2=false;
+						}else{
+						check2=true;
+						check=false;
+					    }
+					}
+					if(check==true){
+							out.write(countEng+"  "+fname+"  "+lname+"    "+"อังกฤษ"+"  "+timeEng+"  "+scoreEng);
+							out.newLine();
+						}
+					if(check2==true){
+						out.write(countEng+"  "+fname+"  "+lname+"    "+"อังกฤษ"+"  "+timeEng+"  "+scoreEng);
+						out.newLine();
+					}
+				}else{
+					out.write("1"+"  "+fname+"  "+lname+"    "+"อังกฤษ"+"  "+timeEng+"  "+scoreEng);
+					out.newLine();
+				}
+				out.close();
+				writePoint.close();
+				scan.close();
+				file2.close();
+				scanner.close();
+				file.close();
+				
+			}catch(FileNotFoundException exc){
+				exc.printStackTrace();
+			}catch(Exception e){
+				System.out.println("Error: " + e.getMessage());
+			}
+		}
+		
+		
+
+			public void Social(String fname,String lname)throws IOException{
+				Scanner input=new Scanner(System.in);
+				int scoreSocial=0;
+				int countSocial=1;
+				int timeSocial=1;
+				boolean check=false,check2=false;
+				try{
+					FileReader file = new FileReader("303.txt");
+					Scanner scanner = new Scanner(file);
+					
+					FileReader file2 = new FileReader("StudentExam.txt");
+					Scanner scan = new Scanner(file2);
+					FileWriter writePoint =new FileWriter("StudentExam.txt",true);
+					BufferedWriter out =new BufferedWriter(writePoint);
+					
+					while(scanner.hasNext()){
+						String text=scanner.nextLine();
+						Scanner data= new Scanner(text);
+						String question=data.next();
+						String choice1=data.next();
+						String choice2=data.next();
+						String choice3=data.next();
+						String choice4=data.next();
+						String answer=data.next();
+						System.out.print(question+"\n"+choice1+"\n"+choice2+"\n"+choice3+"\n"+choice4+"\n");	
+						System.out.print("คำตอบที่ถูกต้องที่สุดคือ....... ");
+						String ans=input.next();
+						if(answer.equalsIgnoreCase(ans)){
+							scoreSocial++;
+						}
+					}
+					System.out.println("ผลสอบวิชา สังคมศึกษาที่ได้คือ "+scoreSocial+" คะแนน");
+					
+					if(scan.hasNext()){
+						while(scan.hasNext()){
+							String text1 = scan.nextLine();
+							Scanner data2=new Scanner(text1);
+							int number=data2.nextInt();
+							String fname1=data2.next();
+							String lname1=data2.next();
+							String couse=data2.next();
+							int time1=data2.nextInt();
+							int points1=data2.nextInt();
+							countSocial++;
+							if(fname1.equals(fname)&&lname1.equals(lname)&&couse.equals("สังคมศึกษา")){
+							   time1++;
+							   timeSocial=time1;
+							   check=true;
+							   check2=false;
+							}else{
+							check2=true;
+							check=false;
+						    }
+						}
+						if(check==true){
+								out.write(countSocial+"  "+fname+"  "+lname+"    "+"สังคมศึกษา"+"  "+timeSocial+"  "+scoreSocial);
+								out.newLine();
+							}
+						if(check2==true){
+							out.write(countSocial+"  "+fname+"  "+lname+"    "+"สังคมศึกษา"+"  "+timeSocial+"  "+scoreSocial);
+							out.newLine();
+						}
+					}else{
+						out.write("1"+"  "+fname+"  "+lname+"    "+"สังคมศึกษา"+"  "+timeSocial+"  "+scoreSocial);
+						out.newLine();
+					}
+					out.close();
+					writePoint.close();
+					scan.close();
+					file2.close();
+					scanner.close();
+					file.close();
+					
+				}catch(FileNotFoundException exc){
+					exc.printStackTrace();
+				}catch(Exception e){
+					System.out.println("Error: " + e.getMessage());
+				}
+			}
+			
+			@SuppressWarnings("unused")
+			public void Computer(String fname,String lname)throws IOException{
+				Scanner input=new Scanner(System.in);
+				int scoreComputer=0;
+				int countComputer=1;
+				int timeComputer=1;
+				boolean check=false,check2=false;
+				try{
+					FileReader file = new FileReader("404.txt");
+					Scanner scanner = new Scanner(file);
+					
+					FileReader file2 = new FileReader("StudentExam.txt");
+					Scanner scan = new Scanner(file2);
+					FileWriter writePoint =new FileWriter("StudentExam.txt",true);
+					BufferedWriter out =new BufferedWriter(writePoint);
+					
+					while(scanner.hasNext()){
+						String text=scanner.nextLine();
+						Scanner data= new Scanner(text);
+						String question=data.next();
+						String choice1=data.next();
+						String choice2=data.next();
+						String choice3=data.next();
+						String choice4=data.next();
+						String answer=data.next();
+						System.out.print(question+"\n"+choice1+"\n"+choice2+"\n"+choice3+"\n"+choice4+"\n");	
+						System.out.print("คำตอบที่ถูกต้องที่สุดคือ....... ");
+						String ans=input.next();
+						if(answer.equalsIgnoreCase(ans)){
+							scoreComputer++;
+						}
+					}
+					System.out.println("ผลสอบวิชา คอมพิวเตอร์ที่ได้คือ "+scoreComputer+" คะแนน");
+					
+					if(scan.hasNext()){
+						while(scan.hasNext()){
+							String text1 = scan.nextLine();
+							Scanner data2=new Scanner(text1);
+							int number=data2.nextInt();
+							String fname1=data2.next();
+							String lname1=data2.next();
+							String couse=data2.next();
+							int time1=data2.nextInt();
+							int points1=data2.nextInt();
+							countComputer++;
+							if(fname1.equals(fname)&&lname1.equals(lname)&&couse.equals("คอมพิวเตอร์")){
+							   time1++;
+							   timeComputer=time1;
+							   check=true;
+							   check2=false;
+							}else{
+							check2=true;
+							check=false;
+						    }
+						}
+						if(check==true){
+								out.write(countComputer+"  "+fname+"  "+lname+"    "+"คอมพิวเตอร์"+"  "+timeComputer+"  "+scoreComputer);
+								out.newLine();
+							}
+						if(check2==true){
+							out.write(countComputer+"  "+fname+"  "+lname+"    "+"คอมพิวเตอร์"+"  "+timeComputer+"  "+scoreComputer);
+							out.newLine();
+						}
+					}else{
+						out.write("1"+"  "+fname+"  "+lname+"    "+"คอมพิวเตอร์"+"  "+timeComputer+"  "+scoreComputer);
+						out.newLine();
+					}
+					out.close();
+					writePoint.close();
+					scan.close();
+					file2.close();
+					scanner.close();
+					file.close();
+					
+				}catch(FileNotFoundException exc){
+					exc.printStackTrace();
+				}catch(Exception e){
+					System.out.println("Error: " + e.getMessage());
+				}
+			}
+			
+			
+			
+
+}

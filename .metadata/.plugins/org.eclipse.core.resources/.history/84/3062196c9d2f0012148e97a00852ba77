@@ -1,0 +1,22 @@
+package l2;
+
+import java.util.Vector;
+
+public class Course {
+	private String courseName;
+	private Vector<Student> studentVector = new Vector<Student>();
+	
+	public Course(String courseName) {
+		this.courseName = courseName;
+	}
+	
+	public void addStudent(Student s){
+		studentVector.addElement(s);
+	}
+	
+	public void listStudent(){
+		for(int i = 0;i < studentVector.size();i++){
+			System.out.println(studentVector.elementAt(i));
+		}
+	}
+}

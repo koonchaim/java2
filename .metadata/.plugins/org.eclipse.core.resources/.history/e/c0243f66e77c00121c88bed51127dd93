@@ -1,0 +1,28 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Scanner;
+
+
+@SuppressWarnings("unused")
+public class ShowCoffee{	
+	public void listCoffee() throws IOException{
+		ShowCoffee sc1 = new ShowCoffee();
+		File file = new File("coffee.txt");
+		Scanner scanner = new Scanner(file);
+		while (scanner.hasNext()) {
+			String text = scanner.nextLine();
+			Scanner data = new Scanner(text);
+						
+			String name = data.next();
+			int price_small = data.nextInt();
+			int price_medium = data.nextInt();
+			int price_big = data.nextInt();
+
+			
+			System.out.println(name+"\t"+price_small+"\t"+price_medium+"\t"+price_big);
+		}
+
+		scanner.close();
+	}
+}

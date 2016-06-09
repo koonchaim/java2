@@ -1,0 +1,84 @@
+import java.util.Scanner;
+import java.util.Vector;
+
+
+public class EditCoffee {
+	
+	private String id_coffee;
+	private String name;
+	private String price_small;
+	private String price_medium;
+	private String price_big;
+	private Vector<Coffee> coffeeVector = new Vector<Coffee>();
+	
+	public int findid_coffee(String coff){
+		for (int i = 0; i < coffeeVector.size(); i++) {
+			if(coff.equalsIgnoreCase(coffeeVector.get(i).getId_coffee())){
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	// ** แก้ไขข้อมูล วิชาในไฟล์ student.txt **
+	public boolean editStudent() {
+		int tmp = -1;
+		String coff_Name = "";
+		String small;
+		String medium;
+		String big;
+		
+		System.out.println("-- แก้ไขชนิดกาแฟ --");
+		System.out.println("  ");
+		Scanner edit_coff = new Scanner(System.in);
+		System.out.println("กรุณากรอกหมายเลขของสูตรกาแฟที่ต้องการแก้ไข : ");
+		
+		id_coffee = edit_coff.nextLine();
+	
+
+		tmp = findid_coffee(id_coffee);
+		System.out.println("กรุณากรอกชื่อกาแฟ (coffee name) ที่ต้องการเพิ่มรายการ : ");
+		coff_Name = edit_coff.nextLine();
+		
+		
+		
+		if (!coff_Name.equalsIgnoreCase(" ")) {
+			coffeeVector.get(tmp).setName(coff_Name);
+		}
+		
+		System.out.println("กรุณากรอกราคาของสูตรกาแฟ (recipe price) ร้อน : ");
+		small = edit_coff.nextLine();
+		
+		
+		if (!small.equalsIgnoreCase(" ")) {
+			coffeeVector.get(tmp).setPrice_small(price_small);
+		}
+		System.out.println("กรุณากรอกราคาของสูตรกาแฟ (recipe price) เย็นขนาดเล็ก : ");
+		medium = edit_coff.nextLine();
+		
+		
+		if (!medium.equalsIgnoreCase(" ")) {
+			coffeeVector.get(tmp).setPrice_medium(medium);
+		}
+		
+		
+		System.out.println("กรุณากรอกราคาของสูตรกาแฟ (recipe price) เย็นขนาดใหญ่ : ");
+		big = edit_coff.nextLine();
+		
+		try {
+			Checker.isCheckName(big, "Department");
+		} catch (WrongInputException e) {
+			System.out.println(e.getMessage());
+			return true;
+		}
+		
+		
+		if (!big.equalsIgnoreCase(" ")) {
+			coffeeVector.get(tmp).setDepartment(big);
+		}
+		writeStudent();
+		System.out.println("การแก้ไขรายชื่อนักศึกษาเสร็จสมบูรณ์");
+		return false;
+	}
+
+}

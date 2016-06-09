@@ -1,0 +1,24 @@
+import java.io.IOException;
+
+
+public class Menu {
+	//menu 1
+	public void listCoffee() throws IOException {
+			ShowCoffee cof = new ShowCoffee();
+			System.out.println("-- รายชื่อกาแฟทั้งหมด --");
+			cof.listCoffee();
+	}
+	
+	//menu 2
+	public void addCoffee() throws IOException {
+		AddCoffee add = new AddCoffee();
+		add.addCoffee();
+	}
+	
+	//menu 3
+	public void delCoffee() throws IOException {
+		DeleteCoffee del = new DeleteCoffee();
+		del.delCoffee();
+	}
+
+}

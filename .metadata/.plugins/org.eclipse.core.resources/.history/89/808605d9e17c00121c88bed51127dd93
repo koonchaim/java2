@@ -1,0 +1,11 @@
+
+public class Menu {
+	public void listAllStudent() {
+		while (true) {
+			StudentDetail stDe = new StudentDetail();
+			System.out.println("-- List All Students --");
+			stDe.showListStudent();
+		}
+	}
+
+}

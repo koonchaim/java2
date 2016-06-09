@@ -1,0 +1,11 @@
+
+public class Menu {
+	public void listAllStudent() {
+		while (true) {
+			ShowCoffee cof = new ShowCoffee();
+			System.out.println("-- List All Students --");
+			cof.toString();
+		}
+	}
+
+}

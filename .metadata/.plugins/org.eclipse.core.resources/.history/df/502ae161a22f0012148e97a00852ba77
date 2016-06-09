@@ -1,0 +1,23 @@
+package l2;
+
+public class Run {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Student stu1 = new Student("M");
+		Student stu2 = new Student("Mone");
+		
+		stu1.setMidtermScore(100);
+		stu1.setFinalScore(100);
+		
+		stu2.setMidtermScore(40);
+		stu2.setFinalScore(60);
+		
+		stu1.getAverageScore();
+		stu1.getGrade();
+	}
+
+}

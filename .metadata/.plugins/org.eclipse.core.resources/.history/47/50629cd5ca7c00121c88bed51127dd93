@@ -1,0 +1,62 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+import java.util.Vector;
+
+
+public class DeleteCoffee {
+	private Vector<Coffee> coffeeVector = new Vector<Coffee>();
+	//เขียนข้อมูล
+	public void writeStudent() {
+		try {
+			BufferedWriter out = new BufferedWriter(new FileWriter(
+					"student.txt"));
+			for (Coffee c : coffeeVector) {
+				out.write(c.toString());
+				out.newLine();
+			}
+			out.close();
+		} catch (IOException e) {
+			System.out.println("Input / Output Stream Error!!");
+		}
+	}
+	
+	
+	public void AddCoffee() throws IOException{
+		File file = new File("coffee.txt");
+		Scanner scanner = new Scanner(file);
+        
+        Scanner id2 = new Scanner(System.in);
+		System.out.println("กรุณากรอกรหัส(StudntId)ที่ต้องการลบ :");
+		String id1 = id2.next();
+		
+		while (scanner.hasNext()) {
+			String text = scanner.nextLine();
+			Scanner data = new Scanner(text);
+			
+			int id = data.nextInt();			
+			String name = data.next();
+			int price_small = data.nextInt();
+			int price_medium = data.nextInt();
+			int price_big = data.nextInt();
+			
+			Coffee coff = new Coffee(id,name,price_small,price_medium,price_big);
+			coffeeVector.add(coff);
+			for(int i =0 ; i < coffeeVector.size() ;i++){
+				if(name.equals(coffeeVector.get(i).getName())){
+					coffeeVector.remove(i);
+					System.out.println("ลบเสร็จสมบูรณ์");
+					writeStudent();
+					
+				}
+				//System.out.println(coffeeVector.elementAt(i));
+			}
+			
+			
+		}
+		scanner.close();
+	}
+
+}

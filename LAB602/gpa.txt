@@ -1,0 +1,8 @@
+Erica Kane
+3 A 4 B 3 C
+Greenlee Smythe
+3 C 3 B 4 D
+Ryan Layeree
+2 C 3 C 4 B 1 A
+Adam Chandier
+3 B 4 B 3 C 2 D

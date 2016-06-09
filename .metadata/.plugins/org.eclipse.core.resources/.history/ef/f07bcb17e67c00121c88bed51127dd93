@@ -1,0 +1,52 @@
+
+public class Recipe {
+	private int id_recipe;
+	private String name_recipe,mash_1,mash_2,mash_3;
+
+	public String getName_recipe() {
+		return name_recipe;
+	}
+
+	public void setName_recipe(String name_recipe) {
+		this.name_recipe = name_recipe;
+	}
+
+	public String getMash_1() {
+		return mash_1;
+	}
+
+	public void setMash_1(String mash_1) {
+		this.mash_1 = mash_1;
+	}
+
+	public String getMash_2() {
+		return mash_2;
+	}
+
+	public void setMash_2(String mash_2) {
+		this.mash_2 = mash_2;
+	}
+
+	public String getMash_3() {
+		return mash_3;
+	}
+
+	public void setMash_3(String mash_3) {
+		this.mash_3 = mash_3;
+	}
+
+	public Recipe(String name_recipe, String mash_1, String mash_2,
+			String mash_3) {
+		super();
+		this.name_recipe = name_recipe;
+		this.mash_1 = mash_1;
+		this.mash_2 = mash_2;
+		this.mash_3 = mash_3;
+	}
+
+	@Override
+	public String toString() {
+		return name_recipe + "\t" + mash_1 + "\t" + mash_2 + "\t" + mash_3;
+	}
+	
+}

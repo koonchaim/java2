@@ -1,0 +1,121 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+import java.util.Vector;
+
+
+public class EditRecipe {
+	private String id_recipe;
+	private String name_recipe_recipe,mash_1,mash_2,mash_3;
+	private Vector<Recipe> recipeVector = new Vector<Recipe>();
+	
+	public EditRecipe() {
+		this.AddRecipe();
+	}
+	
+	public void AddRecipe(){
+		try {
+			Scanner cofIn = new Scanner(new File("recipe.txt"));
+			while (cofIn.hasNext()) {
+				Recipe re = new Recipe(cofIn.next(), cofIn.next(), cofIn.next(),
+						cofIn.next(), cofIn.next());
+				recipeVector.add(re);
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println("File Not Found Exception");
+		}
+	}
+	
+	
+	// ** บรรทึกข้อมูล ลงในไฟล์ coffee.txt **
+			public void writeRecipe() {
+				try {
+					BufferedWriter out = new BufferedWriter(new FileWriter(
+							"recipe.txt"));
+					for (Recipe re : recipeVector) {
+						out.write(re.toString());
+						out.newLine();
+					}
+					out.close();
+				} catch (IOException e) {
+					System.out.println("Input / Output Stream Error!!");
+				}
+			}
+	
+	
+	public int findid_recipe(String coff){
+		for (int i = 0; i < recipeVector.size(); i++) {
+			if(coff.equalsIgnoreCase(recipeVector.get(i).getId_recipe())){
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	// ** แก้ไขข้อมูล วิชาในไฟล์ student.txt **
+	public boolean editRecipe() {
+		int tmp = -1;
+		String recipe_name = "";
+		String recipe_mash_1 = "";
+		String recipe_mash_2 = "";
+		String recipe_mash_3 = "";
+		
+		ShowCoffee show = new ShowCoffee();
+		try {
+			show.listCoffee();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("-- แก้ไขชนิดกาแฟ --");
+		System.out.println("  ");
+		Scanner edit_coff = new Scanner(System.in);
+		System.out.println("กรุณากรอกหมายเลขของสูตรกาแฟที่ต้องการแก้ไข : ");
+		
+		id_recipe = edit_coff.nextLine();
+	
+
+		tmp = findid_recipe(id_recipe);
+		System.out.println("กรุณากรอกชื่อกาแฟ (coffee name_recipe) ที่ต้องการเพิ่มรายการ : ");
+		coff_name_recipe = edit_coff.nextLine();
+		
+		
+		
+		if (!coff_name_recipe.equalsIgnoreCase(" ")) {
+			recipeVector.get(tmp).setname_recipe(coff_name_recipe);
+		}
+		
+		System.out.println("กรุณากรอกราคาของสูตรกาแฟ (recipe price) ร้อน : ");
+		small = edit_coff.nextLine();
+		
+		
+		if (!small.equalsIgnoreCase(" ")) {
+			recipeVector.get(tmp).setmash_1(small);
+		}
+		System.out.println("กรุณากรอกราคาของสูตรกาแฟ (recipe price) เย็นขนาดเล็ก : ");
+		medium = edit_coff.nextLine();
+		
+		
+		if (!medium.equalsIgnoreCase(" ")) {
+			recipeVector.get(tmp).setmash_2(medium);
+		}
+		
+		
+		System.out.println("กรุณากรอกราคาของสูตรกาแฟ (recipe price) เย็นขนาดใหญ่ : ");
+		big = edit_coff.nextLine();
+		
+		
+		
+		if (!big.equalsIgnoreCase(" ")) {
+			recipeVector.get(tmp).setmash_3(big);
+		}
+		writeRecipe();
+		System.out.println("การแก้ไขรายชื่อนักศึกษาเสร็จสมบูรณ์");
+		return false;
+	}
+
+}
